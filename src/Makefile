@@ -1,5 +1,5 @@
 all:
-	gcc -O3 -g -c *.c -I../include
+	gcc -g -c *.c -I../include
 	ar -rc network.a *.o
 	mv network.a ../
 timer:

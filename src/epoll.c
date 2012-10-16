@@ -70,7 +70,7 @@ void epoll_loop(engine_t n)
 		uint32_t now = GetSystemMs();
 		if(now - tick > 1000)
 		{
-			printf("recv:%d\n",total_bytes_recv/1024/1024);
+			printf("recv:%dmb\n",total_bytes_recv/1024/1024);
 			tick = now;
 			total_bytes_recv = 0;
 		}

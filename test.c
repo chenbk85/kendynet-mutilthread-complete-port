@@ -125,14 +125,14 @@ void *IORoutine(void *arg)
 		}
 		if(ioComp)
 		{
-			if(ioComp->bytes_transfer <= 0)
+			/*if(ioComp->bytes_transfer <= 0)
 			{
 				_Socket *sock = (_Socket*)(((IoContext*)ioComp)->ud);
 				if(CloseSocket(sock->m_sock) == 0)
 					free(sock);
 			}
 			else
-			{
+			{*/
 				IoContext *context = (IoContext*)ioComp;
 				_Socket *sock = (_Socket*)context->ud;
 				if(context->m_opType <= RECV)
@@ -145,6 +145,7 @@ void *IORoutine(void *arg)
 					//一直读,直到IO_PENDING
 					int byteTransfer = 0;
 					//继续读
+					context->m_opType = RECV_FINISH;
 					while((byteTransfer = WSARecv(sock->m_sock,(st_io*)context)) > 0)
 					{
 						total_bytes_recv += byteTransfer;
@@ -162,7 +163,7 @@ void *IORoutine(void *arg)
 							free(sock);
 					}					
 				}
-			}
+			//}
 		}
 	}
 	printf("IO end\n");
