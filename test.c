@@ -139,6 +139,13 @@ void *IORoutine(void *arg)
 				{
 					if(context->m_opType == RECV_FINISH)
 					{
+						if(ioComp->bytes_transfer <= 0)
+						{
+							_Socket *sock = (_Socket*)(((IoContext*)ioComp)->ud);
+							if(CloseSocket(sock->m_sock) == 0)
+								free(sock);
+							continue;
+						}
 						//一个读完成通告
 						total_bytes_recv += ioComp->bytes_transfer;
 					}
